@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+	<title>Hello</title>
+    </head>
+    <body>
+        <div id="app">
+	    <ul>
+	        <li v-for="product in products">
+		    <input type="number" v-model.number="product.quantity">
+		    {{product.name}}
+		    <span v-if="product.quantity === 0">
+		        - OUT OF STOCK
+		    </span>
+		    <button @click="product.quantity++">
+			Add
+		    </button>
+		</li>
+	    </ul>
+	    <h2>Total Inventory: {{totalProducts}}</h2>
+	</div>
+    </body>
+	
+    <script src ="http://unpkg.com/vue"></script>
+    <script src = "app.js"></script>
+</html>
+
