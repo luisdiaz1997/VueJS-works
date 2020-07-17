@@ -13,8 +13,7 @@ def process_data():
     if request.method == 'POST':
         print("-----------------------------------------")
         print(request.form)
-        return render_template("validation.html")
-    return render_template("validation.html")
+        return render_template("validation.html", result=request.form)
 
 
 if __name__ == "__main__":
