@@ -1,0 +1,18 @@
+.jumbotron h1{
+  font-weight: 800;
+}
+/* .jumbotron{
+  background-color: transparent;
+
+} */
+.mycontainer{
+ background-color: white;
+ border: none;
+ max-width: 900px;
+ margin: 2% auto;
+ padding: 2% 2%;
+ box-shadow: 3px 5px 5px 5px black;
+
+ text-align: center;
+ border-radius: 20px;
+}
