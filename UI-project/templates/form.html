@@ -187,9 +187,17 @@
               </b-form-checkbox-group>
             </b-form-group>
 
-            <vue-recaptcha sitekey="6Lc1hLIZAAAAANkry110OjRbC9_U89bqu3N95M21">
+            <!-- <vue-recaptcha sitekey="6Lc1hLIZAAAAANkry110OjRbC9_U89bqu3N95M21">
+              <button>Click me</button>
+            </vue-recaptcha> -->
+            <h3> Bind ReCAPTCHA to button </h3>
+            <vue-recaptcha
+              @verify="onVerify"
+              @expired="onExpired"
+              sitekey="6LeXhbIZAAAAAGje0QnhsmQbuYAU4aq69mVeIHyw">
               <button>Click me</button>
             </vue-recaptcha>
+
 
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
@@ -205,7 +213,9 @@
       window.app = new Vue({
         el: '#app',
         delimiters: ['[[', ']]'],
-        components: {VueRecaptcha},
+        components: {
+            'vue-recaptcha': VueRecaptcha
+        },
         data: {
           name: '',
           form: {
@@ -225,6 +235,18 @@
           //   evt.preventDefault()
           //   fetch("/form_data", {method: "POST", body:JSON.stringify(this.form)})
           // },
+          onSubmit: function () {
+            this.$refs.invisibleRecaptcha.execute()
+          },
+          onVerify: function (response) {
+            console.log('Verify: ' + response)
+          },
+          onExpired: function () {
+            console.log('Expired')
+          },
+          resetRecaptcha () {
+            this.$refs.recaptcha.reset() // Direct call reset method
+          },
           send_json(evt){
             return JSON.stringify(this.form)
           },
