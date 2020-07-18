@@ -13,7 +13,14 @@ def process_data():
     if request.method == 'POST':
         print("-----------------------------------------")
         print(request.form)
-        return render_template("validation.html", result=request.form)
+        data = request.form
+        address_list = [data['street'], data['city'] ,data['state'], data['country'], data['area']]
+        address = " ".join(address_list)
+        address_q = "+".join(address.split())
+
+        print(address)
+        print(address_q)
+        return render_template("validation2.html", result=data, address_q=address_q)
 
 
 if __name__ == "__main__":

@@ -60,149 +60,152 @@
         <b-container class="mycontainer">
           <b-form @reset="onReset" v-if="show" action ="/form_data" method = "POST">
 
-            <b-card bg-variant="light">
-              <b-form-group id="input-group-1" label="Your Name" label-for="input-1" label-class="font-weight-bold pt-0" label-size="lg">
-                <b-row class="my-1">
-                  <b-col sm="6">
-                    <b-form-input
-                      id="input-1"
-                      name="name"
-                      v-model="form.name"
-                      required
-                      placeholder="Enter first name"
-                    ></b-form-input>
-                  </b-col sm="6">
-                  <b-col sm="6">
-                    <b-form-input
-                      id="input-1"
-                      name="lastname"
-                      v-model="form.lastname"
-                      required
-                      placeholder="Enter last name"
-                    ></b-form-input>
-                  </b-col sm="6">
-                </b-row>
+
+            <b-form-group id="input-group-1" label="Your Name" label-for="input-1" label-class="font-weight-bold pt-0" label-size="lg">
+              <b-row class="my-1">
+                <b-col sm="6">
+                  <b-form-input
+                    id="input-1"
+                    name="name"
+                    v-model="form.name"
+                    required
+                    placeholder="Enter first name"
+                  ></b-form-input>
+                </b-col sm="6">
+                <b-col sm="6">
+                  <b-form-input
+                    id="input-1"
+                    name="lastname"
+                    v-model="form.lastname"
+                    required
+                    placeholder="Enter last name"
+                  ></b-form-input>
+                </b-col sm="6">
+              </b-row>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Address" label-size="lg" label-class="font-weight-bold pt-0">
+
+              <b-row>
+                <b-col sm="8">
+                  <b-form-group label-cols-sm="2" label-align-sm="left" label="Street" label-for="nested-street">
+                    <b-form-input name="street" id="nested-street" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+
+                <b-col sm="4">
+                  <b-form-group label-cols-sm="2" label-align-sm="left" label="City" label-for="nested-city">
+                    <b-form-input name="city" id="nested-city" required> </b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+              <b-row>
+                <b-col sm="4">
+                  <b-form-group label-cols-sm="4" label-align-sm="left" label="State" label-for="nested-state">
+                    <b-form-input name="state" id="nested-state" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+
+                <b-col sm="4">
+                  <b-form-group label-cols-sm="4" label-align-sm="left" label="Country" label-for="nested-country">
+                    <b-form-input name="country" id="nested-country" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="4">
+                  <b-form-group label-cols-sm="5" label-align-sm="left" label="Zip code" label-for="nested-area">
+                    <b-form-input name="area" id="nested-area" type="number" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+
+            </b-form-group>
+
+            <b-form-group>
+              <b-row>
+                <b-col sm="4">
+                  <b-form-group id="input-group-3" label="Date of Birth" label-for="date" label-size="lg" label-class="font-weight-bold pt-0">
+                    <b-form-input id="date" name="date" type="date" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="4">
+                  <b-form-group id="input-group-4" label="Education" label-for="degree" label-size="lg" label-class="font-weight-bold pt-0">
+                  <b-form-input name="degree" list="input-list" id="degree"></b-form-input>
+                  <b-form-datalist id="input-list" :options="form.options"></b-form-datalist>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="4">
+                  <b-form-group id="input-group-6" label="Phone" label-for="phone" label-size="lg" label-class="font-weight-bold pt-0">
+                  <b-form-input name="phone" type="number" id="phone" required></b-form-input>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+              <b-form-group id="input-group-5" label="Height" label-size="lg" label-class="font-weight-bold pt-0">
+                <b-row>
+                      <b-col sm="6">
+                        <b-form-group label-cols-sm="3" id="feet" label="Feet">
+                        <b-form-input id="feet" name="feet" type="number"></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                      <b-col sm="6">
+                        <b-form-group label-cols-sm="3" id="inches" label="Inches">
+                        <b-form-input id="inches" name="inches" type="number"></b-form-input>
+                        </b-form-group>
+                      </b-col>
+                    </b-row>
               </b-form-group>
 
-              <b-form-group id="input-group-2" label="Address" label-size="lg" label-class="font-weight-bold pt-0">
+            </b-form-group>
 
-                <b-row>
-                  <b-col sm="8">
-                    <b-form-group label-cols-sm="2" label-align-sm="left" label="Street" label-for="nested-street">
-                      <b-form-input name="street" id="nested-street"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-
-                  <b-col sm="4">
-                    <b-form-group label-cols-sm="2" label-align-sm="left" label="City" label-for="nested-city">
-                      <b-form-input name="city" id="nested-city"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-
-                <b-row>
-                  <b-col sm="4">
-                    <b-form-group label-cols-sm="4" label-align-sm="left" label="State" label-for="nested-state">
-                      <b-form-input name="state" id="nested-state"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-
-                  <b-col sm="4">
-                    <b-form-group label-cols-sm="4" label-align-sm="left" label="Country" label-for="nested-country">
-                      <b-form-input name="country" id="nested-country"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                  <b-col sm="4">
-                    <b-form-group label-cols-sm="5" label-align-sm="left" label="Zip code" label-for="nested-area">
-                      <b-form-input name="area" id="nested-area" type="number"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-
-              </b-form-group>
-
-              <b-form-group>
-                <b-row>
-                  <b-col>
-                    <b-form-group id="input-group-3" label="Date of Birth" label-for="input-3" label-size="lg" label-class="font-weight-bold pt-0">
-                      <b-form-input id="input-3" name="date" type="date"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                  <b-col>
-                    <b-form-group id="input-group-4" label="Education" label-for="degree" label-size="lg" label-class="font-weight-bold pt-0">
-                    <b-form-input name="degree" list="input-list" id="input-with-list"></b-form-input>
-                    <b-form-datalist id="input-list" :options="form.options"></b-form-datalist>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-                <b-row>
-                  <b-col>
-                    <b-form-group id="input-group-5" label="Height" label-size="lg" label-class="font-weight-bold pt-0">
-                      <b-row>
-                        <b-col sm="6">
-                          <b-form-group label-cols-sm="4" id="feet" label="Feet">
-                          <b-form-input id="feet" name="feet" type="number"></b-form-input>
-                          </b-form-group>
-                        </b-col>
-                        <b-col sm="6">
-                          <b-form-group label-cols-sm="4" id="inches" label="Inches">
-                          <b-form-input id="inches" name="inches" type="number"></b-form-input>
-                          </b-form-group>
-                        </b-col>
-                      </b-row>
-                    </b-form-group>
-                  </b-col>
-                  <b-col>
-                    <b-form-group id="input-group-6" label="Phone" label-for="phone" label-size="lg" label-class="font-weight-bold pt-0">
-                    <b-form-input name="phone" type="number" id="input-with-list"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-              </b-form-group>
-
-              <b-form-group>
-                <b-row>
-                  <b-col>
-                    <b-form-group id="input-group-7" label="Email" label-for="email" label-size="lg" label-class="font-weight-bold pt-0">
-                      <b-form-input id="email" name="email" type="email" v-model="form.email" required :state="email_validation"></b-form-input>
-                    </b-form-group>
-                  </b-col>
-                  <b-col>
-                    <b-form-group id="input-group-8" label="Email Confirmation" label-for="email2" label-size="lg" label-class="font-weight-bold pt-0">
-                      <b-form-input id="email2" type="email" v-model="form.email2" required :state="email_validation"></b-form-input>
-                      <b-form-invalid-feedback :state="email_validation">
-                        Emails do not match
-                      </b-form-invalid-feedback>
-                    </b-form-group>
-                  </b-col>
-                </b-row>
-              </b-form-group>
+            <b-form-group>
+              <b-row>
+                <b-col sm="6">
+                  <b-form-group id="input-group-7" label="Email" label-for="email" label-size="lg" label-class="font-weight-bold pt-0">
+                    <b-form-input id="email" name="email" type="email" v-model="form.email" required :state="email_validation"></b-form-input>
+                  </b-form-group>
+                </b-col>
+                <b-col sm="6">
+                  <b-form-group id="input-group-8" label="Email Confirmation" label-for="email2" label-size="lg" label-class="font-weight-bold pt-0">
+                    <b-form-input id="email2" type="email" v-model="form.email2" required :state="email_validation"></b-form-input>
+                    <b-form-invalid-feedback :state="email_validation">
+                      Emails do not match
+                    </b-form-invalid-feedback>
+                  </b-form-group>
+                </b-col>
+              </b-row>
+            </b-form-group>
 
 
-            </b-card>
+
 
             <b-form-group id="input-group-9">
-              <b-form-checkbox-group v-model="form.checked" id="checkboxes-4" name="agreement">
-                <b-form-checkbox value="accept" required>I Agree to terms</b-form-checkbox>
+              <b-form-checkbox-group v-model="form.checked" id="checkboxes-4" name="agreement" required>
+                <b-form-checkbox value="accept">I Agree to terms</b-form-checkbox>
               </b-form-checkbox-group>
             </b-form-group>
 
             <!-- <vue-recaptcha sitekey="6Lc1hLIZAAAAANkry110OjRbC9_U89bqu3N95M21">
               <button>Click me</button>
             </vue-recaptcha> -->
-            <h3> Bind ReCAPTCHA to button </h3>
+
+
             <vue-recaptcha
               @verify="onVerify"
               @expired="onExpired"
               sitekey="6Le9hrIZAAAAAFnhmoS_lpXZvp2G7J1nRNAonJPh"
-              :load-recaptcha-script="true">
-              <button>Click me</button>
+              :load-recaptcha-script="true" class="captcha">
             </vue-recaptcha>
+
+            <b-form-invalid-feedback :state="captcha_verified">
+              Captcha not yet done
+            </b-form-invalid-feedback>
 
 
             <b-button type="submit" variant="primary">Submit</b-button>
             <b-button type="reset" variant="danger">Reset</b-button>
           </b-form>
+
+
 
 
         </b-container>
@@ -227,7 +230,8 @@
             email: '',
             email2: '',
             options: ['High School Diploma', 'Associates Degree', 'Bachelors Degree', 'Masters Degree', 'PhD', 'MPH', 'JD', 'MD'],
-            checked: []
+            checked: [],
+            verify: ''
           },
           show: true
         },
@@ -240,6 +244,7 @@
             this.$refs.invisibleRecaptcha.execute()
           },
           onVerify: function (response) {
+            this.form.verify = response
             console.log('Verify: ' + response)
           },
           onExpired: function () {
@@ -274,6 +279,11 @@
             }
             return this.form.email == this.form.email2 ? true: false
 
+          },
+          captcha_verified(){
+            if (this.form.verify == ''){
+              return false
+            }
           }
 
         }

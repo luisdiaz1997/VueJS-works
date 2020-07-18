@@ -16,3 +16,21 @@
  text-align: center;
  border-radius: 20px;
 }
+
+.captcha{
+  margin: 0 auto;
+  width: 304px;
+}
+
+.map{
+   border: none;
+   margin: 2% auto;
+   padding: 2% 2%;
+   border-radius: 30px;
+}
+
+label{
+  text-transform: capitalize;
+  font-size: 20px;
+  font-weight: bold;
+}
