@@ -20,7 +20,7 @@ def process_data():
 
         print(address)
         print(address_q)
-        return render_template("validation2.html", result=data, address_q=address_q)
+        return render_template("validation.html", result=data, address_q=address_q)
 
 
 if __name__ == "__main__":

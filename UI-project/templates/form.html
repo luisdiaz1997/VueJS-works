@@ -34,7 +34,10 @@
     <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
     <script src="https://unpkg.com/vue-recaptcha@latest/dist/vue-recaptcha.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer>
-</script>
+    </script>
+
+    <!-- for validations -->
+    <script src="https://unpkg.com/vee-validate@<3.0.0"></script>
 
 
   </head>
@@ -58,7 +61,7 @@
         <!-- </b-container> -->
 
         <b-container class="mycontainer">
-          <b-form @reset="onReset" v-if="show" action ="/form_data" method = "POST">
+          <b-form ref="form" @submit.stop.prevent="onSubmit" @reset="onReset" v-if="show" action ="/form_data" method = "POST">
 
 
             <b-form-group id="input-group-1" label="Your Name" label-for="input-1" label-class="font-weight-bold pt-0" label-size="lg">
@@ -70,7 +73,13 @@
                     v-model="form.name"
                     required
                     placeholder="Enter first name"
+                    v-validate="'max:40'"
+                    :state="validateState('name')"
                   ></b-form-input>
+                  <b-form-invalid-feedback id="name-feedback">
+                    name with more than 40 characters
+                  </b-form-invalid-feedback>
+
                 </b-col sm="6">
                 <b-col sm="6">
                   <b-form-input
@@ -79,7 +88,12 @@
                     v-model="form.lastname"
                     required
                     placeholder="Enter last name"
+                    v-validate="'max:40'"
+                    :state="validateState('lastname')"
                   ></b-form-input>
+                  <b-form-invalid-feedback id="lastname-feedback">
+                    lastname with more than 40 characters
+                  </b-form-invalid-feedback>
                 </b-col sm="6">
               </b-row>
             </b-form-group>
@@ -89,13 +103,19 @@
               <b-row>
                 <b-col sm="8">
                   <b-form-group label-cols-sm="2" label-align-sm="left" label="Street" label-for="nested-street">
-                    <b-form-input name="street" id="nested-street" required></b-form-input>
+                    <b-form-input v-model="form.street" name="street" id="street" placeholder="ex. 1600 Holloway Ave" required
+                    v-validate="'max:40'"
+                    :state="validateState('street')"
+                  ></b-form-input>
+                  <b-form-invalid-feedback id="street-feedback">
+                    street with more than 40 characters
+                  </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
 
                 <b-col sm="4">
                   <b-form-group label-cols-sm="2" label-align-sm="left" label="City" label-for="nested-city">
-                    <b-form-input name="city" id="nested-city" required> </b-form-input>
+                    <b-form-input name="city" id="nested-city" placeholder="San Francisco" required> </b-form-input>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -103,18 +123,23 @@
               <b-row>
                 <b-col sm="4">
                   <b-form-group label-cols-sm="4" label-align-sm="left" label="State" label-for="nested-state">
-                    <b-form-input name="state" id="nested-state" required></b-form-input>
+                    <b-form-input name="state" id="nested-state" placeholder="California" required></b-form-input>
                   </b-form-group>
                 </b-col>
 
                 <b-col sm="4">
                   <b-form-group label-cols-sm="4" label-align-sm="left" label="Country" label-for="nested-country">
-                    <b-form-input name="country" id="nested-country" required></b-form-input>
+                    <b-form-input name="country" id="nested-country" placeholder="United States" required></b-form-input>
                   </b-form-group>
                 </b-col>
                 <b-col sm="4">
                   <b-form-group label-cols-sm="5" label-align-sm="left" label="Zip code" label-for="nested-area">
-                    <b-form-input name="area" id="nested-area" type="number" required></b-form-input>
+                    <b-form-input v-model="form.area" name="area" id="area" type="number" placeholder="94132" required
+                    :state="validateState('area')" v-validate="'digits:5'"></b-form-input>
+                    <b-form-invalid-feedback
+                      id="area-feedback"
+                    >Zip code must have 5 numbers
+                    </b-form-invalid-feedback>
                   </b-form-group>
                 </b-col>
               </b-row>
@@ -130,14 +155,20 @@
                 </b-col>
                 <b-col sm="4">
                   <b-form-group id="input-group-4" label="Education" label-for="degree" label-size="lg" label-class="font-weight-bold pt-0">
-                  <b-form-input name="degree" list="input-list" id="degree"></b-form-input>
+                  <b-form-input name="degree" list="input-list" placeholder="High School Diploma" id="degree"></b-form-input>
                   <b-form-datalist id="input-list" :options="form.options"></b-form-datalist>
                   </b-form-group>
                 </b-col>
                 <b-col sm="4">
                   <b-form-group id="input-group-6" label="Phone" label-for="phone" label-size="lg" label-class="font-weight-bold pt-0">
-                  <b-form-input name="phone" type="number" id="phone" required></b-form-input>
+                  <b-form-input v-model="form.number" name="phone" type="number" placeholder="2655255" id="phone" required
+                  :state="validateState('phone')" v-validate="'digits:7'"></b-form-input>
+                  <b-form-invalid-feedback
+                    id="phone-feedback"
+                  >Phone number with 7 digits required
+                  </b-form-invalid-feedback>
                   </b-form-group>
+
                 </b-col>
               </b-row>
               <b-form-group id="input-group-5" label="Height" label-size="lg" label-class="font-weight-bold pt-0">
@@ -161,13 +192,15 @@
               <b-row>
                 <b-col sm="6">
                   <b-form-group id="input-group-7" label="Email" label-for="email" label-size="lg" label-class="font-weight-bold pt-0">
-                    <b-form-input id="email" name="email" type="email" v-model="form.email" required :state="email_validation"></b-form-input>
+                    <b-form-input id="email" ref="email" name="email" type="email"
+                    placeholder="myemail@mail.com" v-model="form.email" required ></b-form-input>
                   </b-form-group>
                 </b-col>
                 <b-col sm="6">
                   <b-form-group id="input-group-8" label="Email Confirmation" label-for="email2" label-size="lg" label-class="font-weight-bold pt-0">
-                    <b-form-input id="email2" type="email" v-model="form.email2" required :state="email_validation"></b-form-input>
-                    <b-form-invalid-feedback :state="email_validation">
+                    <b-form-input id="email2" v-validate="'required|email|confirmed:email'" type="email" placeholder="myemail@mail.com"  v-model="form.email2"
+                    :state="email_validation"></b-form-input>
+                    <b-form-invalid-feedback id="email-feedback">
                       Emails do not match
                     </b-form-invalid-feedback>
                   </b-form-group>
@@ -214,11 +247,17 @@
     <!-- Start running your app -->
     <script>
 
+    Vue.use(VeeValidate, {
+      inject: true,
+      fieldsBagName: "veeFields",
+      errorBagName: "veeErrors"
+      });
       window.app = new Vue({
         el: '#app',
         delimiters: ['[[', ']]'],
         components: {
-            'vue-recaptcha': VueRecaptcha
+            'vue-recaptcha': VueRecaptcha,
+            'vee-validate':VeeValidate
         },
         data: {
           name: '',
@@ -227,6 +266,9 @@
             lastname: '',
             address: '',
             date: '',
+            street: '',
+            area: '',
+            number: '',
             email: '',
             email2: '',
             options: ['High School Diploma', 'Associates Degree', 'Bachelors Degree', 'Masters Degree', 'PhD', 'MPH', 'JD', 'MD'],
@@ -236,13 +278,32 @@
           show: true
         },
         methods: {
-          // onSubmit(evt) {
-          //   evt.preventDefault()
-          //   fetch("/form_data", {method: "POST", body:JSON.stringify(this.form)})
-          // },
-          onSubmit: function () {
-            this.$refs.invisibleRecaptcha.execute()
+
+
+          onSubmit() {
+            this.$validator.validateAll().then(result => {
+              if (!result) {
+                alert("Not complete")
+                return;
+
+              }
+
+              alert("Form submitted!");
+              this.$refs.form.submit();
+            });
           },
+          validateState(ref) {
+            if (
+              this.veeFields[ref] &&
+              (this.veeFields[ref].dirty || this.veeFields[ref].validated)
+            ) {
+              return !this.veeErrors.has(ref);
+            }
+            return null;
+          },
+          // onSubmit: function () {
+          //   this.$refs.invisibleRecaptcha.execute()
+          // },
           onVerify: function (response) {
             this.form.verify = response
             console.log('Verify: ' + response)
@@ -259,14 +320,23 @@
           onReset(evt) {
             evt.preventDefault()
             // Reset our form values
+
+            this.form.lastname = ''
             this.form.email = ''
             this.form.email2 =''
             this.form.name = ''
             this.form.food = null
             this.form.checked = []
+            this.form.number= ''
+            this.form.area = ''
+            this.form.street=''
+
+
             // Trick to reset/clear native browser form validation state
+
             this.show = false
             this.$nextTick(() => {
+              this.$validator.reset();
               this.show = true
             })
           }

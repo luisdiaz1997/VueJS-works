@@ -1,27 +1,92 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
   <head>
-    <meta charset="utf-8">
-    <title></title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+
+    <title>Data survey form</title>
+
+    <!-- Required Stylesheets -->
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.css"
+    />
+
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+
+    <!-- Load polyfills to support older browsers -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es2015%2CIntersectionObserver"></script>
+
+    <!-- Required scripts -->
+    <script src="https://unpkg.com/vue@latest/dist/vue.js"></script>
+    <script src="https://unpkg.com/bootstrap-vue@latest/dist/bootstrap-vue.js"></script>
+
+
   </head>
   <body>
-    <table border = 1>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }} </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-      </table>
+    <!-- Our application root element -->
+    <div id="app">
+      <!-- <b-container> -->
+        <b-jumbotron class="mb-0 text-center">
 
-      <p>  </p>
+          <template v-slot:header>
 
-      <div style="text-decoration:none; overflow:hidden;max-width:100%;width:500px;height:500px; margin: 0 auto;">
-        <div id="gmapcanvas" style="height:100%; width:100%;max-width:100%;">
-          <iframe style="height:100%;width:100%;border:0;" frameborder="0"
+            Results verification page
+          </template>
+
+          <!-- <b-btn variant="primary" href="https://bootstrap-vue.org/">More Info</b-btn> -->
+        </b-jumbotron>
+        <!-- </b-container> -->
+
+
+
+        <b-container class="mycontainer">
+          <h1> Please verify your information is correct </h1>
+          <div class="data display">
+            {% for key, value in result.items() if ((key != "g-recaptcha-response") and (key != "agreement")) %}
+              <label for={{key}} inline>{{key+ ':'}}</h3></label>
+
+              <span id={{key}}>
+
+                {% if (value=="") %}
+                 Not provided
+                 {%endif%}
+                {{value}}
+              </span>
+              <br>
+            {% endfor %}
+          </div>
+
+
+
+          <b-embed type="iframe" class = "map"
           src={{"https://www.google.com/maps/embed/v1/search?q="+address_q + "&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8"}}>
-          </iframe>
-        </div>
-      </div>
+          </b-embed>
+
+
+        </b-container>
+    </div>
+
+    <!-- Start running your app -->
+    <script>
+
+      window.app = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data: {}
+      })
+    </script>
   </body>
 </html>
